@@ -56,7 +56,7 @@ public class Session {
 
                 case DELETE:
                     int idx = Integer.parseInt(terms[1]);
-                    String item = currCart.delete(idx);
+                    String item = currCart.delete(idx - 1);
                     System.out.printf("Removed $s from %s's cart",
                         item, currCart.getUsername());
                     break;

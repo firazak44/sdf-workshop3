@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,25 +22,22 @@ public class Repos {
             List<String> carts = new LinkedList<>();
             for(String n : repository.list())
                 carts.add(n.replace(".cart", ""));
-            System.out.println(carts);
             return carts;
             
         }
 
         public void save(Cart cart){
             String cartName = cart.getUsername() + ".cart";
-            System.out.println(repository.getPath());
             String saveLocation = repository.getPath() + File.separator + cartName;
             File saveFile = new File(saveLocation);
             OutputStream os = null;
             try{
                 if(!saveFile.exists()){
-                    System.out.println("create file");
-                    
+                    Path path= Paths.get(repository.getPath());
+                    Files.createDirectories(path);
                     saveFile.createNewFile();
                 }
                     
-
                 os = new FileOutputStream(saveLocation);
                 cart.save(os);
                 os.flush();
@@ -62,6 +62,6 @@ public class Repos {
                     }
                 }
         return cart;
-        }
+    }
 }
 
